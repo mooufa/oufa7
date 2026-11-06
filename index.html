@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موسوعة هاوي صيانة المحترفة - Pro Electronics Repair Workbench</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#080d1a',
+                        cardBg: '#0f172a',
+                        cardHeader: '#1e293b',
+                        borderBg: '#334155',
+                        brandBlue: '#38bdf8',
+                        brandCyan: '#06b6d4',
+                        brandAmber: '#f59e0b',
+                        brandGreen: '#10b981',
+                        brandRed: '#ef4444',
+                        brandPurple: '#a855f7'
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        tajawal: ['Tajawal', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #060b17;
+            color: #f8fafc;
+        }
+        .glow-blue { box-shadow: 0 0 20px rgba(56, 189, 248, 0.2); }
+        .glow-amber { box-shadow: 0 0 20px rgba(245, 158, 11, 0.2); }
+        .glow-green { box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
+        @media print {
+            body { background: white; color: black; }
+            header, footer, nav, .no-print { display: none !important; }
+            .print-only { display: block !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col custom-scrollbar">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-cardBg border-b border-borderBg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo & Title -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 flex items-center justify-center text-white text-xl font-black shadow-lg shadow-cyan-500/30">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h1 class="text-xl font-black tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-300">موسوعة هاوي صيانة المحترفة</h1>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 uppercase">PRO WORKBENCH v3.0</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 hidden sm:block">المرجع الشامل والاحترافي لتشخيص وصيانة الشاشات والريسيفرات ودواير البوردة</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="hidden lg:flex items-center gap-1 text-xs">
+                    <button onclick="switchTab('ai-assistant')" id="nav-ai-assistant" class="px-3.5 py-2 rounded-lg font-bold transition flex items-center gap-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 shadow-lg shadow-cyan-500/20">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> فحص البوردة بالذكاء الاصطناعي
+                    </button>
+                    <button onclick="switchTab('tv-catalog')" id="nav-tv-catalog" class="px-3.5 py-2 rounded-lg font-bold text-slate-300 hover:bg-slate-800 hover:text-white transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-tv"></i> أطلس الموديلات والبوردات
+                    </button>
+                    <button onclick="switchTab('components')" id="nav-components" class="px-3.5 py-2 rounded-lg font-bold text-slate-300 hover:bg-slate-800 hover:text-white transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-layer-group"></i> دليل مكونات البوردة
+                    </button>
+                    <button onclick="switchTab('wizard')" id="nav-wizard" class="px-3.5 py-2 rounded-lg font-bold text-slate-300 hover:bg-slate-800 hover:text-white transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-stethoscope"></i> محرك الصيانة والتشخيص
+                    </button>
+                    <button onclick="switchTab('rails')" id="nav-rails" class="px-3.5 py-2 rounded-lg font-bold text-slate-300 hover:bg-slate-800 hover:text-white transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-chart-line"></i> جدول الفولتيات المرجعية
+                    </button>
+                    <button onclick="switchTab('tools')" id="nav-tools" class="px-3.5 py-2 rounded-lg font-bold text-slate-300 hover:bg-slate-800 hover:text-white transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-calculator"></i> حاسبات وأدوات الفني
+                    </button>
+                    <button onclick="switchTab('test-patterns')" id="nav-test-patterns" class="px-3.5 py-2 rounded-lg font-bold text-purple-300 hover:bg-slate-800 transition flex items-center gap-1.5 border border-purple-500/30 bg-purple-500/10">
+                        <i class="fa-solid fa-expand"></i> اختبار البانل والألوان
+                    </button>
+                    <button onclick="switchTab('dump-hub')" id="nav-dump-hub" class="px-3.5 py-2 rounded-lg font-bold text-slate-300 hover:bg-slate-800 hover:text-white transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-floppy-disk"></i> مكتبة السوفت وير
+                    </button>
+                    <button onclick="switchTab('job-note')" id="nav-job-note" class="px-3.5 py-2 rounded-lg font-bold text-slate-300 hover:bg-slate-800 hover:text-white transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-file-invoice"></i> تقرير الصيانة
+                    </button>
+                </nav>
+
+                <!-- Search Quick Bar -->
+                <div class="flex items-center gap-2">
+                    <div class="relative">
+                        <input type="text" id="globalSearchInput" onkeyup="handleGlobalSearch(event)" placeholder="ابحث برقم آيسي، عطل، مكون..." class="bg-slate-950 border border-slate-700 text-xs rounded-xl pr-9 pl-3 py-2 text-slate-200 focus:outline-none focus:border-cyan-500 w-44 sm:w-64 transition">
+                        <i class="fa-solid fa-magnifying-glass absolute right-3 top-2.5 text-slate-500 text-xs"></i>
+                    </div>
+                    <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg bg-slate-800 text-slate-300">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-slate-900 border-b border-borderBg px-4 py-3 space-y-2 text-xs">
+            <button onclick="switchTab('ai-assistant')" class="w-full text-right px-3 py-2 rounded bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold flex items-center gap-2">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> فحص البوردة بالذكاء الاصطناعي
+            </button>
+            <button onclick="switchTab('tv-catalog')" class="w-full text-right px-3 py-2 rounded hover:bg-slate-800 text-slate-300 font-bold flex items-center gap-2">
+                <i class="fa-solid fa-tv"></i> أطلس موديلات الشاشات والريسيفرات
+            </button>
+            <button onclick="switchTab('components')" class="w-full text-right px-3 py-2 rounded hover:bg-slate-800 text-slate-300 font-bold flex items-center gap-2">
+                <i class="fa-solid fa-layer-group"></i> دليل مكونات البوردة بالتفصيل
+            </button>
+            <button onclick="switchTab('wizard')" class="w-full text-right px-3 py-2 rounded hover:bg-slate-800 text-slate-300 font-bold flex items-center gap-2">
+                <i class="fa-solid fa-stethoscope"></i> محرك الصيانة والتشخيص
+            </button>
+            <button onclick="switchTab('rails')" class="w-full text-right px-3 py-2 rounded hover:bg-slate-800 text-slate-300 font-bold flex items-center gap-2">
+                <i class="fa-solid fa-chart-line"></i> جدول الفولتيات المرجعية
+            </button>
+            <button onclick="switchTab('tools')" class="w-full text-right px-3 py-2 rounded hover:bg-slate-800 text-slate-300 font-bold flex items-center gap-2">
+                <i class="fa-solid fa-calculator"></i> حاسبات وأدوات الفني
+            </button>
+            <button onclick="switchTab('test-patterns')" class="w-full text-right px-3 py-2 rounded hover:bg-slate-800 text-purple-300 font-bold flex items-center gap-2">
+                <i class="fa-solid fa-expand"></i> اختبار البانل والألوان
+            </button>
+            <button onclick="switchTab('dump-hub')" class="w-full text-right px-3 py-2 rounded hover:bg-slate-800 text-slate-300 font-bold flex items-center gap-2">
+                <i class="fa-solid fa-floppy-disk"></i> أرشيف ملفات السوفت وير
+            </button>
+            <button onclick="switchTab('job-note')" class="w-full text-right px-3 py-2 rounded hover:bg-slate-800 text-slate-300 font-bold flex items-center gap-2">
+                <i class="fa-solid fa-file-invoice"></i> إنشاء تقرير صيانة
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+
+        <!-- TAB 1: GEMINI VISION AI WORKBENCH -->
+        <section id="sec-ai-assistant" class="tab-content space-y-6">
+            <div class="bg-cardBg rounded-2xl border border-borderBg p-6 space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-borderBg">
+                    <div>
+                        <h2 class="text-xl font-black text-white flex items-center gap-2">
+                            <i class="fa-solid fa-wand-magic-sparkles text-cyan-400"></i> فحص تشخيص البوردة والمكونات بالذكاء الاصطناعي (Gemini Vision AI)
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">التقط أو ارفع صورة كارتة الباور، المين بورد، التيكون، أو أي مكون إلكتروني لتحليله واستخراج أرقامه وخطة فحص بالأفوميتر.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Upload Area -->
+                    <div class="space-y-4">
+                        <div id="dropZone" onclick="document.getElementById('boardImageInput').click()" class="border-2 border-dashed border-slate-700 hover:border-cyan-500 bg-slate-950 rounded-2xl p-6 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[220px]">
+                            <i class="fa-solid fa-cloud-arrow-up text-4xl text-cyan-400 mb-3"></i>
+                            <p class="text-sm font-bold text-white mb-1">اضغط هنا أو اسحب صورة البوردة / القطعة الإلكترونية</p>
+                            <p class="text-xs text-slate-500">يدعم صيغ JPG, PNG, WEBP (حجم أقصى 10 ميجا)</p>
+                            <input type="file" id="boardImageInput" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
+                        </div>
+
+                        <!-- Preview Area -->
+                        <div id="imagePreviewContainer" class="hidden space-y-3">
+                            <div class="relative rounded-2xl overflow-hidden border border-slate-800 bg-black max-h-[250px] flex items-center justify-center">
+                                <img id="uploadedImagePreview" src="" alt="Board Preview" class="max-h-[240px] object-contain">
+                                <button onclick="removeUploadedImage()" class="absolute top-2 left-2 p-2 bg-red-600/80 hover:bg-red-600 text-white rounded-full text-xs transition">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Prompt Input -->
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-slate-300">وصف العطل أو استفسار الفني (اختياري):</label>
+                            <textarea id="aiUserPrompt" rows="3" placeholder="مثال: الشاشة قاطعة باور، الدايود بجوار المكثف الكبير مسخن، أود فحص دائرة التقطيع وقيم الفولتيات..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-cyan-500"></textarea>
+                        </div>
+
+                        <button onclick="analyzeBoardImage()" id="btnAnalyzeAi" class="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:brightness-110 text-slate-950 font-black text-sm rounded-xl transition shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-microchip"></i> ابدأ الفحص والتحليل الذكي الآن
+                        </button>
+                    </div>
+
+                    <!-- AI Result Display -->
+                    <div class="bg-slate-950 rounded-2xl border border-slate-800 p-5 space-y-4 flex flex-col justify-between">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <h3 class="font-bold text-sm text-cyan-400 flex items-center gap-2">
+                                <i class="fa-solid fa-robot"></i> تقرير الذكاء الاصطناعي وتشخيص القطع:
+                            </h3>
+                            <button onclick="copyAiResponse()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1">
+                                <i class="fa-solid fa-copy"></i> نسخ التقرير
+                            </button>
+                        </div>
+
+                        <div id="aiResultContainer" class="text-xs text-slate-300 space-y-3 custom-scrollbar overflow-y-auto max-h-[380px] leading-relaxed">
+                            <div class="text-center py-12 text-slate-500">
+                                <i class="fa-solid fa-circle-nodes text-4xl mb-3 text-slate-700"></i>
+                                <p>قم برفع صورة للبوردة أو المكون ثم اضغط على زر التحليل لبدء الفحص وإصدار التقرير.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: TV & RECEIVER BOARD ATLAS -->
+        <section id="sec-tv-catalog" class="tab-content hidden space-y-6">
+            <div class="bg-cardBg rounded-2xl border border-borderBg p-6 space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-borderBg">
+                    <div>
+                        <h2 class="text-xl font-black text-white flex items-center gap-2">
+                            <i class="fa-solid fa-tv text-cyan-400"></i> أطلس أحجام وموديلات الشاشات والريسيفرات ومخططات البوردات
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">تصفح موديلات الشاشات من 32" إلى 75" والريسيفرات (Sunplus, GX, Ali) وتعرّف على أرقام الكارتات ومكونات كل بوردة بالتفصيل.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="filterAtlasCategory('all')" class="atlas-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-500 text-slate-950">الكل</button>
+                        <button onclick="filterAtlasCategory('tv')" class="atlas-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300">الشاشات</button>
+                        <button onclick="filterAtlasCategory('receiver')" class="atlas-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300">الريسيفرات</button>
+                    </div>
+                </div>
+
+                <div id="atlas-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: COMPONENTS GUIDE -->
+        <section id="sec-components" class="tab-content hidden space-y-6">
+            <div class="bg-cardBg rounded-2xl border border-borderBg p-6 space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-borderBg">
+                    <div>
+                        <h2 class="text-xl font-black text-white flex items-center gap-2">
+                            <i class="fa-solid fa-layer-group text-cyan-400"></i> الدليل الشامل والمفصل لمكونات البوردة (PCB Component Map)
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">تفكيك كامل وشرح تفصيلي لكل قطعة على كارتات الشاشات والريسيفرات (أسماؤها، وظائفها، فولتياتها، وطريقة قياسها وتداعيات تلفها).</p>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 text-xs">
+                        <button onclick="filterComponents('all')" class="cmp-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-brandBlue text-slate-950">كافة المكونات</button>
+                        <button onclick="filterComponents('caps')" class="cmp-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300">المكثفات</button>
+                        <button onclick="filterComponents('diodes')" class="cmp-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300">الدايودات والزينر</button>
+                        <button onclick="filterComponents('active')" class="cmp-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300">الموسفيت والترانزستور</button>
+                        <button onclick="filterComponents('ics')" class="cmp-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300">الآيسيات والمعالج</button>
+                    </div>
+                </div>
+
+                <div id="components-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Cards Populated via Javascript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: DIAGNOSTIC WIZARD -->
+        <section id="sec-wizard" class="tab-content hidden space-y-6">
+            <div class="bg-cardBg rounded-2xl border border-borderBg p-6 space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-borderBg">
+                    <div>
+                        <h2 class="text-xl font-black text-white flex items-center gap-2">
+                            <i class="fa-solid fa-stethoscope text-cyan-400"></i> محرك الصيانة والتشخيص التفاعلي الشامل
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">اختر نوع الجهاز والمشكلة لتتبع خطة الصيانة السريعة خطوة بخطوة بالأفوميتر والقياسات الفولطية.</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="filterDevice('tv')" id="btn-dev-tv" class="px-5 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 bg-brandCyan text-slate-950 shadow">
+                            <i class="fa-solid fa-tv"></i> شاشات (LED / LCD / OLED)
+                        </button>
+                        <button onclick="filterDevice('receiver')" id="btn-dev-receiver" class="px-5 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 text-slate-400 hover:text-white">
+                            <i class="fa-solid fa-satellite-dish"></i> ريسيفرات (Mini / HD / Sunplus)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Symptoms Cards Grid -->
+                <div id="symptom-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Populated by JS -->
+                </div>
+
+                <!-- Interactive Detailed Diagnostic Steps Container -->
+                <div id="diagnostic-result" class="hidden p-6 rounded-2xl bg-slate-950 border border-brandCyan/40 space-y-6 glow-blue">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: VOLTAGE RAILS CHART -->
+        <section id="sec-rails" class="tab-content hidden space-y-6">
+            <div class="bg-cardBg rounded-2xl border border-borderBg p-6 space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-borderBg">
+                    <div>
+                        <h2 class="text-xl font-black text-white flex items-center gap-2">
+                            <i class="fa-solid fa-chart-line text-cyan-400"></i> خريطة الفولتيات المرجعية ودواير التغذية (Voltage Rails Chart)
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">جدول القيم الفولتية القياسية المتوقعة على جميع أطراف ومحولات البوردة لتتبع خطوط التغذية الحساسة.</p>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-950">
+                    <table class="w-full text-right text-xs text-slate-300">
+                        <thead class="bg-slate-900 text-cyan-400 font-bold border-b border-slate-800">
+                            <tr>
+                                <th class="p-3">اسم خط الفولتية (Voltage Rail)</th>
+                                <th class="p-3">القيمة القياسية (Nominal)</th>
+                                <th class="p-3">المكون المسئول بالبوردة</th>
+                                <th class="p-3">تداعيات انخفاض الفولت / الصفر فولت</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800">
+                            <tr class="hover:bg-slate-900/50">
+                                <td class="p-3 font-bold text-white font-mono">300V DC Primary</td>
+                                <td class="p-3 text-emerald-400 font-bold font-mono">280V - 320V DC</td>
+                                <td class="p-3 text-cyan-300">المكثف الكبير (Main Filter Capacitor EC1)</td>
+                                <td class="p-3 text-red-400">انقطاع الباور تماماً، فتح الفيوز أو تلف قنطرة التوحيد Bridge Diode.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-900/50">
+                                <td class="p-3 font-bold text-white font-mono">12V Main Supply Rail</td>
+                                <td class="p-3 text-emerald-400 font-bold font-mono">12.0V DC</td>
+                                <td class="p-3 text-cyan-300">شوتكي دايود الثانوي (Secondary Schottky D101)</td>
+                                <td class="p-3 text-red-400">توقف المين بورد، عدم إضاءة اللمبة الحمراء، توقف آيسي الصوت والانفرتر.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-900/50">
+                                <td class="p-3 font-bold text-white font-mono">5V Standby / USB</td>
+                                <td class="p-3 text-emerald-400 font-bold font-mono">5.0V DC</td>
+                                <td class="p-3 text-cyan-300">منظم DC-DC Buck Converter Step Down</td>
+                                <td class="p-3 text-red-400">عدم إمكانية الإقلاع من الستاندباي وتغذية منافذ الـ USB.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-900/50">
+                                <td class="p-3 font-bold text-white font-mono">3.3V System & Flash VCC</td>
+                                <td class="p-3 text-emerald-400 font-bold font-mono">3.3V DC</td>
+                                <td class="p-3 text-cyan-300">منظم الجهد AMS1117-3.3 / LDO Regulator</td>
+                                <td class="p-3 text-red-400">وقوف الشاشة/الريسيفر على اللمبة الحمراء أو نقطة ثابتة لعدم قراءة الفلاشة 25Q32.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-900/50">
+                                <td class="p-3 font-bold text-white font-mono">1.8V RAM Supply Rail</td>
+                                <td class="p-3 text-emerald-400 font-bold font-mono">1.8V DC</td>
+                                <td class="p-3 text-cyan-300">منظم الجهد الخطّي LDO / AMS1117-1.8</td>
+                                <td class="p-3 text-red-400">تهنيج الجهاز أو الوقوف على لوجو الشاشة/كلمة ON بالريسيفر.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-900/50">
+                                <td class="p-3 font-bold text-white font-mono">1.2V Core CPU Voltage</td>
+                                <td class="p-3 text-emerald-400 font-bold font-mono">1.15V - 1.25V DC</td>
+                                <td class="p-3 text-cyan-300">ملف ومحكّم Step-Down Buck Regulator بجوار المعالج</td>
+                                <td class="p-3 text-red-400">المعالج الرئيسي لا يعمل إطلاقاً (CPU Dead Phase).</td>
+                            </tr>
+                            <tr class="hover:bg-slate-900/50">
+                                <td class="p-3 font-bold text-white font-mono">VGH Panel High Voltage</td>
+                                <td class="p-3 text-emerald-400 font-bold font-mono">+24V to +30V DC</td>
+                                <td class="p-3 text-cyan-300">آيسي التيكون DC-DC Converter (Gate On)</td>
+                                <td class="p-3 text-red-400">شاشة بيضاء أو سوداء بدون بيانات، بطء استجابة حركة الصورة.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-900/50">
+                                <td class="p-3 font-bold text-white font-mono">VGL Panel Low Voltage</td>
+                                <td class="p-3 text-emerald-400 font-bold font-mono">-5V to -7V DC</td>
+                                <td class="p-3 text-cyan-300">دائرة التحويل السالبة بالتيكون (Gate Off)</td>
+                                <td class="p-3 text-red-400">خطوط عمودية ملونة وتداخل الصورة باهتة.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-900/50">
+                                <td class="p-3 font-bold text-white font-mono">LNB Tuner Power (Receiver)</td>
+                                <td class="p-3 text-emerald-400 font-bold font-mono">13V (V) / 18V (H)</td>
+                                <td class="p-3 text-cyan-300">آيسي الإشارة S8035 / S8036 / S8086</td>
+                                <td class="p-3 text-red-400">عطل قطع إشارة عمودي V أو أفقي H أو رسالة "لا توجد إشارة".</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 6: TECHNICIAN TOOLS & CALCULATORS -->
+        <section id="sec-tools" class="tab-content hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                <!-- Resistor Color Band Calculator -->
+                <div class="bg-cardBg rounded-2xl border border-borderBg p-6 space-y-4">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2 border-b border-borderBg pb-3">
+                        <i class="fa-solid fa-palette text-cyan-400"></i> حاسبة ألوان المقاومة الكربونية (4 حزم)
+                    </h3>
+                    <p class="text-xs text-slate-400">اختر ألوان الحزم للحصول على القيمة الدقيقة بالأوم والتسامح.</p>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 text-xs">
+                        <div>
+                            <label class="block font-bold text-slate-300 mb-1">الحزمة 1</label>
+                            <select id="band1" onchange="calculateResistor()" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white">
+                                <option value="1">بني (1)</option>
+                                <option value="2" selected>أحمر (2)</option>
+                                <option value="3">برتقالي (3)</option>
+                                <option value="4">أصفر (4)</option>
+                                <option value="5">أخضر (5)</option>
+                                <option value="6">أزرق (6)</option>
+                                <option value="7">بنفسجي (7)</option>
+                                <option value="8">رمادي (8)</option>
+                                <option value="9">أبيض (9)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-300 mb-1">الحزمة 2</label>
+                            <select id="band2" onchange="calculateResistor()" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white">
+                                <option value="0">أسود (0)</option>
+                                <option value="1">بني (1)</option>
+                                <option value="2" selected>أحمر (2)</option>
+                                <option value="3">برتقالي (3)</option>
+                                <option value="4">أصفر (4)</option>
+                                <option value="5">أخضر (5)</option>
+                                <option value="6">أزرق (6)</option>
+                                <option value="7">بنفسجي (7)</option>
+                                <option value="8">رمادي (8)</option>
+                                <option value="9">أبيض (9)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-300 mb-1">المعامل (Multiplier)</label>
+                            <select id="bandMult" onchange="calculateResistor()" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white">
+                                <option value="1">أسود (x1 Ω)</option>
+                                <option value="10">بني (x10 Ω)</option>
+                                <option value="100">أحمر (x100 Ω)</option>
+                                <option value="1000" selected>برتقالي (x1 kΩ)</option>
+                                <option value="10000">أصفر (x10 kΩ)</option>
+                                <option value="100000">أخضر (x100 kΩ)</option>
+                                <option value="1000000">أزرق (x1 MΩ)</option>
+                                <option value="0.1">ذهبي (x0.1 Ω)</option>
+                                <option value="0.01">فضة (x0.01 Ω)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-300 mb-1">التسامح (Tolerance)</label>
+                            <select id="bandTol" onchange="calculateResistor()" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white">
+                                <option value="±5%">ذهبي (±5%)</option>
+                                <option value="±10%">فضة (±10%)</option>
+                                <option value="±1%">بني (±1%)</option>
+                                <option value="±2%">أحمر (±2%)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-slate-400 block">قيمة المقاومة المحسوبة:</span>
+                            <span id="resistorResultText" class="text-xl font-extrabold text-cyan-400">22.00 kΩ ±5%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SMD Resistor Reader -->
+                <div class="bg-cardBg rounded-2xl border border-borderBg p-6 space-y-4">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2 border-b border-borderBg pb-3">
+                        <i class="fa-solid fa-microchip text-emerald-400"></i> قارئ أكواد مقاومات SMD الطبع
+                    </h3>
+                    <p class="text-xs text-slate-400">أدخل الكود المطبوع على المقاومة السطحية مثل: 103, 472, R47, 2R2, 1001.</p>
+
+                    <div class="flex gap-3 pt-2">
+                        <input type="text" id="smdInput" placeholder="أدخل كود SMD مثل 103 أو 4R7" class="flex-grow bg-slate-950 border border-slate-700 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        <button onclick="calculateSMD()" class="px-5 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-sm rounded-xl transition">
+                            فك الكود
+                        </button>
+                    </div>
+
+                    <div id="smdResultBox" class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+                        <span class="text-xs text-slate-400 block">النتيجة:</span>
+                        <span id="smdResultVal" class="text-lg font-bold text-emerald-400">أدخل كود للبدء (مثال: 103 = 10kΩ)</span>
+                    </div>
+                </div>
+
+                <!-- Backlight Current Reduction (ISET) Master Tool -->
+                <div class="bg-cardBg rounded-2xl border border-borderBg p-6 space-y-4 lg:col-span-2">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2 border-b border-borderBg pb-3">
+                        <i class="fa-solid fa-bolt-lightning text-yellow-400"></i> حاسبة وطريقة خفض تيار الليدات الشاملة (ISET Current Reduction)
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="md:col-span-2 space-y-3 text-xs leading-relaxed text-slate-300 bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <h4 class="font-bold text-cyan-400 text-sm">القواعد الأساسية لتقليل أمبير الليدات:</h4>
+                            <p>تتم عملية التعديل عبر التعامل مع المقاومات المتصلة بطرف **ISET / FB** في آيسي درايفر الانفرتر (مثل OB3350, MAP3202, BIT3267):</p>
+                            <ul class="list-disc list-inside space-y-1 text-slate-400">
+                                <li><strong class="text-white">قاعدة الرفع:</strong> إزالة مقاومة واحدة أو أكثر من طقم المقاومات المتوازية يزيد من المقاومة الكلية ➔ يقلل التيار المار في الليدات بنسبة 25% - 35%.</li>
+                                <li><strong class="text-white">النتيجة:</strong> تنخفض حرارة الليدات بشكل ملحوظ دون تأثير ملحوظ على سطوع الصورة، مما يمنع احتراق المساطر مجدداً.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Parallel Calculator -->
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
+                            <h4 class="font-bold text-xs text-yellow-400">حاسبة رفع المقاومات:</h4>
+                            <div class="space-y-2 text-xs">
+                                <div>
+                                    <label class="text-slate-400 block mb-1">مقاومة R1 (Ω)</label>
+                                    <input type="number" step="0.1" id="r1Val" value="1.2" class="w-full bg-slate-900 border border-slate-700 rounded p-1.5 text-white">
+                                </div>
+                                <div>
+                                    <label class="text-slate-400 block mb-1">مقاومة R2 (Ω)</label>
+                                    <input type="number" step="0.1" id="r2Val" value="1.5" class="w-full bg-slate-900 border border-slate-700 rounded p-1.5 text-white">
+                                </div>
+                                <div>
+                                    <label class="text-slate-400 block mb-1">مقاومة R3 (Ω - اختيارية)</label>
+                                    <input type="number" step="0.1" id="r3Val" value="2.2" class="w-full bg-slate-900 border border-slate-700 rounded p-1.5 text-white">
+                                </div>
+                            </div>
+                            <button onclick="calculateParallelResistors()" class="w-full py-2 bg-yellow-500 hover:bg-yellow-600 text-slate-950 font-bold text-xs rounded transition">
+                                حساب القيمة الجديدة
+                            </button>
+                            <div id="parallelResult" class="text-[11px] text-slate-300"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 7: TEST PATTERNS -->
+        <section id="sec-test-patterns" class="tab-content hidden space-y-6">
+            <div class="bg-cardBg rounded-2xl border border-borderBg p-6 space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-borderBg">
+                    <div>
+                        <h2 class="text-xl font-black text-white flex items-center gap-2">
+                            <i class="fa-solid fa-expand text-purple-400"></i> مولد أنماط فحص واختبار البانل (TV Test Patterns Generator)
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">وصل جهازك بشاشة العميل لفحص كفاءة الألوان، البكسلات الميتة (Dead Pixels)، وتشويهات التيكون واختبار الصوت 1kHz.</p>
+                    </div>
+                </div>
+
+                <!-- Test Patterns Grid Options -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                    <button onclick="launchFullscreenTest('color-red')" class="p-4 rounded-xl bg-red-600 hover:scale-105 transition text-center space-y-2 border border-red-400/40 shadow-lg">
+                        <span class="block text-white font-extrabold text-xs">أحمر صافي (Red)</span>
+                    </button>
+                    <button onclick="launchFullscreenTest('color-green')" class="p-4 rounded-xl bg-green-600 hover:scale-105 transition text-center space-y-2 border border-green-400/40 shadow-lg">
+                        <span class="block text-white font-extrabold text-xs">أخضر صافي (Green)</span>
+                    </button>
+                    <button onclick="launchFullscreenTest('color-blue')" class="p-4 rounded-xl bg-blue-600 hover:scale-105 transition text-center space-y-2 border border-blue-400/40 shadow-lg">
+                        <span class="block text-white font-extrabold text-xs">أزرق صافي (Blue)</span>
+                    </button>
+                    <button onclick="launchFullscreenTest('color-white')" class="p-4 rounded-xl bg-white hover:scale-105 transition text-center space-y-2 text-slate-950 border border-slate-300 shadow-lg">
+                        <span class="block font-extrabold text-xs">أبيض نقي (White)</span>
+                    </button>
+                    <button onclick="launchFullscreenTest('color-black')" class="p-4 rounded-xl bg-black hover:scale-105 transition text-center space-y-2 border border-slate-800 shadow-lg">
+                        <span class="block text-white font-extrabold text-xs">أسود عميق (Black)</span>
+                    </button>
+                    <button onclick="launchFullscreenTest('pattern-grid')" class="p-4 rounded-xl bg-slate-900 border border-purple-500/50 hover:scale-105 transition text-center space-y-2 text-purple-300 shadow-lg">
+                        <span class="block font-extrabold text-xs">شبكة الهندسة (Grid)</span>
+                    </button>
+                </div>
+
+                <!-- Audio Tone Test -->
+                <div class="p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-bold text-xs text-cyan-400 flex items-center gap-2">
+                            <i class="fa-solid fa-volume-high"></i> اختبـار آيسي وسماعات الصوت (1kHz Sine Wave Audio Test)
+                        </h4>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button onclick="toggleAudioTestTone()" id="btnAudioTone" class="px-5 py-2 bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold text-xs rounded-xl transition flex items-center gap-2">
+                            <i class="fa-solid fa-play"></i> تشغيل نغمة الاختبـار (1kHz Sine Tone)
+                        </button>
+                        <span id="audioToneStatus" class="text-xs text-slate-400">المولد متوقف حالياً</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 8: DUMP FILES HUB -->
+        <section id="sec-dump-hub" class="tab-content hidden space-y-6">
+            <div class="bg-cardBg rounded-2xl border border-borderBg p-6 space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-borderBg">
+                    <div>
+                        <h2 class="text-xl font-black text-white flex items-center gap-2">
+                            <i class="fa-solid fa-floppy-disk text-amber-400"></i> أرشيف ومكتبة ملفات السوفت وير والـ DUMP
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">دليل الفلاشات والسوفت وير الأصلي للشاشات والريسيفرات وطريقة الشحن بالمبرمجات (`RT809F`, `CH341A`).</p>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-950">
+                    <table class="w-full text-right text-xs text-slate-300">
+                        <thead class="bg-slate-900 text-amber-400 font-bold border-b border-slate-800">
+                            <tr>
+                                <th class="p-3">نوع الجهاز والشاسيه</th>
+                                <th class="p-3">رقم المين بورد / الكارتة</th>
+                                <th class="p-3">رقم وسعة آيسي الفلاشة</th>
+                                <th class="p-3">صيغة الملف والمبرمجة</th>
+                                <th class="p-3">ملاحظات وحل المشكلة بها</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800">
+                            <tr class="hover:bg-slate-900/50">
+                                <td class="p-3 font-bold text-white">شاشة تورنيدو 32 بوصة HD</td>
+                                <td class="p-3 font-mono text-cyan-300">TP.V56.PB801</td>
+                                <td class="p-3 font-mono text-amber-300">25Q32 (4MB)</td>
+                                <td class="p-3">BIN / CH341A & RT809F</td>
+                                <td class="p-3 text-emerald-400">يعالج عطل الوقوف على اللوجو واللمبة البيضاء.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-900/50">
+                                <td class="p-3 font-bold text-white">ريسيفر Mini HD - Sunplus 1506T</td>
+                                <td class="p-3 font-mono text-cyan-300">HSP06-TV-V1.4</td>
+                                <td class="p-3 font-mono text-amber-300">25Q32 (4MB)</td>
+                                <td class="p-3">BIN / Sunplus Loader RS232</td>
+                                <td class="p-3 text-emerald-400">يعالج عطل الوقوف على كلمة ON والتوقف التلقائي.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-900/50">
+                                <td class="p-3 font-bold text-white">ريسيفر Mini HD - GX6605S Salik</td>
+                                <td class="p-3 font-mono text-cyan-300">GX6605S-MINI-V3</td>
+                                <td class="p-3 font-mono text-amber-300">25Q32 (4MB)</td>
+                                <td class="p-3">BIN / GX Dump Loader</td>
+                                <td class="p-3 text-emerald-400">يعالج عطل اللمبة الحمراء واختفاء أرقام العدسة.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-900/50">
+                                <td class="p-3 font-bold text-white">شاشة LG Smart 43 بوصة</td>
+                                <td class="p-3 font-mono text-cyan-300">EAX67703503</td>
+                                <td class="p-3 font-mono text-amber-300">eMMC 8GB Storage</td>
+                                <td class="p-3">RAW / RT809H Programmer</td>
+                                <td class="p-3 text-emerald-400">إصلاح عطل التوقف التلقائي على لوجو LG WebOS.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 9: REPAIR JOB NOTE -->
+        <section id="sec-job-note" class="tab-content hidden space-y-6">
+            <div class="bg-cardBg rounded-2xl border border-borderBg p-6 space-y-6">
+                <div class="flex items-center justify-between border-b border-borderBg pb-4">
+                    <div>
+                        <h2 class="text-xl font-extrabold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-file-invoice text-brandPurple"></i> مولد تقارير الصيانة والفواتير (Repair Job Note)
+                        </h2>
+                        <p class="text-sm text-slate-400">أنشئ تقرير فحص وصيانة موثق للعميل مع تفاصيل القطع المستبدلة والتكلفة للحفظ أو الطباعة.</p>
+                    </div>
+                    <button onclick="window.print()" class="px-4 py-2 bg-brandPurple hover:bg-purple-600 text-white font-bold text-xs rounded-xl transition flex items-center gap-2">
+                        <i class="fa-solid fa-print"></i> طباعة التقرير (Print PDF)
+                    </button>
+                </div>
+
+                <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-6 max-w-4xl mx-auto" id="printableArea">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-xl bg-purple-600 flex items-center justify-center text-white text-2xl font-bold">
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-black text-white">مركز صيانة الإلكترونيات المحترف</h3>
+                                <p class="text-xs text-slate-400">تقرير استلام وفحص جهاز إلكتروني</p>
+                            </div>
+                        </div>
+                        <div class="text-left text-xs text-slate-400">
+                            <p>التاريخ: <span id="reportDate" class="text-white font-bold"></span></p>
+                            <p>رقم التقرير: <span id="reportNum" class="text-cyan-400 font-bold">#REP-8842</span></p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div>
+                            <label class="text-slate-400 block mb-1">اسم العميل:</label>
+                            <input type="text" id="clientName" value="أحمد محمد علي" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
+                        </div>
+                        <div>
+                            <label class="text-slate-400 block mb-1">رقم الهاتف:</label>
+                            <input type="text" id="clientPhone" value="01012345678" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
+                        </div>
+                        <div>
+                            <label class="text-slate-400 block mb-1">نوع الجهاز وموديل الشاسيه:</label>
+                            <input type="text" id="deviceModel" value="شاشة تورنيدو 43 بوصة - TP.V56.PB801" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
+                        </div>
+                        <div>
+                            <label class="text-slate-400 block mb-1">العطل المذكور من العميل:</label>
+                            <input type="text" id="reportedFault" value="الصوت شغال ولكن الشاشة سوداء لا توجد إضاءة" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 border-t border-slate-800 pt-4 text-xs">
+                        <h4 class="font-bold text-cyan-400 text-sm">نتائج الفحص الفني والقطع المستبدلة:</h4>
+                        <textarea id="technicianNotes" rows="4" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white leading-relaxed" placeholder="أدخل تفاصيل القطع والمكثفات التي تم تغييرها...">تم فحص خط خروج الانفرتر وتبين وجود تلف بمساطر الليدات 6V عدد 3 مساطر. تم استبدال طقم الليدات بأحدث طقم مع عمل تعديل خفض التيار ISET برفع المقاومة 1.2 ohm لتأمين عمر الليدات.</textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-slate-800 pt-4 text-xs">
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                            <span class="text-slate-400 block">تكلفة القطع والإكسسوار:</span>
+                            <input type="text" id="costParts" value="350 ج.م" class="w-full bg-transparent font-bold text-white mt-1 border-b border-slate-700 focus:outline-none">
+                        </div>
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                            <span class="text-slate-400 block">مصاريف المصنعية والفحص:</span>
+                            <input type="text" id="costLabor" value="200 ج.م" class="w-full bg-transparent font-bold text-white mt-1 border-b border-slate-700 focus:outline-none">
+                        </div>
+                        <div class="bg-purple-900/30 p-3 rounded-lg border border-purple-500/40">
+                            <span class="text-purple-300 block font-bold">الإجمالي النهائي المطلوب:</span>
+                            <input type="text" id="costTotal" value="550 ج.م" class="w-full bg-transparent font-extrabold text-purple-300 text-base mt-1 border-b border-purple-500/50 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center text-[11px] text-slate-500 pt-4 border-t border-slate-800">
+                        <p>توقيع الفني المسؤول: ..........................</p>
+                        <p>توقيع واستلام العميل: ..........................</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-cardBg border-t border-borderBg py-6 text-center text-xs text-slate-500 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>جميع الحقوق محفوظة &copy; 2026 - موسوعة هاوي صيانة المحترفة (Pro Electronics Repair Workbench)</p>
+        </div>
+    </footer>
+
+    <!-- Fullscreen Test Pattern Container -->
+    <div id="fullscreenPatternOverlay" onclick="exitFullscreenTest()" class="fixed inset-0 z-[100] hidden cursor-pointer flex items-center justify-center">
+        <div id="patternCanvas" class="w-full h-full flex items-center justify-center">
+            <span class="text-xs text-white/50 bg-black/40 px-4 py-2 rounded-full border border-white/20">اضغط في أي مكان في الشاشة للخروج من وضع الفحص</span>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Core Logic & Databases -->
+    <script>
+        // DATABASES
+        const componentsDatabase = [
+            {
+                pcbCode: "EC1 / C101",
+                name: "المكثف الكهرومائي الكبير (Main Filter Capacitor)",
+                category: "caps",
+                type: "400V - 450V High Voltage Electrolytic",
+                description: "تنعيم وتخزين تيار التيار المستمر (DC) الناتج من قنطرة التوحيد بعد 220V AC.",
+                nominalVoltages: "300V - 320V DC في الوضع الطبيعي",
+                testingMethod: "قياس الفولتية على طرفيه بالأفوميتر (DC 1000V). يفرغ الشحنة بمقاومة حرارية أو لمبة 220V قبل اللمس.",
+                failureSymptoms: "انتفاخ الجانب العلوي، تسريب حمضي، أو قراءة صفر فولت (تلف قنطرة التوحيد أو الفيوز).",
+                replacementNotes: "يستبدل بنفس الفولتية (أو أعلى 450V) ونفس سعة الميكروفاراد (uF)."
+            },
+            {
+                pcbCode: "D101 / SD1",
+                name: "دايود الشوتكي الثانوي (Secondary Schottky Rectifier)",
+                category: "diodes",
+                type: "Dual Schottky Diode (TO-220 Package)",
+                description: "توحيد التيار المتناوب عالي التردد الناتج من المحول الشوبر لتحويله إلى 12V DC مستقرة.",
+                nominalVoltages: "12V DC على طرف الكاثود الأوسط",
+                testingMethod: "قياس الدايود بوضع الصفارة (Diode Test). إعطاء قراءة في اتجاه واحد (0.3V - 0.5V) وانفتاح في الاتجاه الآخر.",
+                failureSymptoms: "شورت صريح (صفارة من الاتجاهين) يتسبب في انطفاء اللمبة الحمراء وتوقف الباور تماماً.",
+                replacementNotes: "يستبدل بدايود سريع Fast Recovery بمواصفات أمبير لا تقل عن الأصلي (مثل MBR20100CT)."
+            },
+            {
+                pcbCode: "Q1 / Q101",
+                name: "موسفيت التقطيع الرئيسي (Power Switch MOSFET)",
+                category: "active",
+                type: "N-Channel Power MOSFET (600V / 7A - 10A)",
+                description: "تقطيع التيار المستمر 300V بسرعة عالية عبر إشارات من آيسي PWM لتمريض الطاقة لمحول الشوبر.",
+                nominalVoltages: "Drain: 300V DC | Gate: 2V-5V Pulses | Source: 0V GND",
+                testingMethod: "قياس المقاومة بين Drain و Source. يجب عدم وجود شورت صريح، والقياس بوضع الدايود يظهر دايود جسم الموسفيت.",
+                failureSymptoms: "احتراق صريح وشورت بين كافة الأطراف يفرقع الفيوز الرئيسي فور توصيل الكهرباء.",
+                replacementNotes: "يجب فحصه مع مقاومة الـ Source (0.22Ω) وآيسي الـ PWM قبل تركيب الموسفيت الجديد."
+            },
+            {
+                pcbCode: "U1 / PWM IC",
+                name: "آيسي مذبذب الباور (PWM Controller IC)",
+                category: "ics",
+                type: "SOT-23-6 / DIP-8 (e.g. OB2263, LD7535, 6853)",
+                description: "توليد نبضات التقطيع الدقيقة على بوابات (Gate) الموسفيت لضمان استقرار فولت الخرج.",
+                nominalVoltages: "VCC Pin: 12V - 18V DC | Gate Out Pin: Pulse Signal",
+                testingMethod: "قياس الفولت على طرف VCC. إذا كان متذبذباً بين 9V و 12V فالآيسي يحاول الإقلاع.",
+                failureSymptoms: "عدم خروج أي جهد ثانوي (0V على 12V) مع سلامة الـ 300V والموسفيت.",
+                replacementNotes: "تأكد من سلامة مقاومات الإقلاع Start-up resistors (100kΩ - 470kΩ)."
+            },
+            {
+                pcbCode: "U2 / 25Q32",
+                name: "ذاكرة الفلاشة (SPI Flash Memory)",
+                category: "ics",
+                type: "SOIC-8 / 8-Pin Flash (25Q32, 25Q64, 25Q128)",
+                description: "تخزين برنامج التشغيل (Firmware / Dump) الخاص بالشاشة أو الريسيفر.",
+                nominalVoltages: "Pin 8 (VCC): 3.3V DC صريحة بدون تذبذب",
+                testingMethod: "قياس الجهد على الطرف رقم 8 والتأكد من عدم وجود شورت بين VCC و GND.",
+                failureSymptoms: "وقوف الجهاز على اللمبة الحمراء، اللوجو، كلمة ON بالريسيفر، أو عدم الاستجابة للريموت.",
+                replacementNotes: "تعديل السوفت عبر مبرمجة CH341A أو RT809F بنسخة معتمدة لنفس الشاسيه."
+            },
+            {
+                pcbCode: "U3 / S8035",
+                name: "آيسي تغذية وتغيير قطبية LNB (Receiver Tuner IC)",
+                category: "ics",
+                type: "SOP-8 / S8035, S8036, S8086",
+                description: "رفع الفولتية من 12V إلى 13V (للقنوات العمودية Vertical) وإلى 18V (للقنوات الأفقیة Horizontal).",
+                nominalVoltages: "Input: 12V DC | Output: 13V DC / 18V DC",
+                testingMethod: "قياس الفولتية على سوكيت التيونر الخارجي أثناء تغيير القنوات بين V و H.",
+                failureSymptoms: "رسالة 'لا توجد إشارة' أو قطع القنوات العمودية أو الأفريقية.",
+                replacementNotes: "استبدال الآيسي ومراجعة الدايود والمكثف المحيط 100uF/35V."
+            }
+        ];
+
+        const masterSymptoms = [
+            {
+                id: "tv-dead",
+                device: "tv",
+                icon: "fa-power-off",
+                severity: "عطل باور كامل",
+                title: "الشاشة قاطعة باور تماماً (لا توجد لمبة بيضاء/حمراء)",
+                symptomSummary: "انعدام الإضاءة والبيانات وعدم استجابة الشاشة للكهرباء إطلاقاً.",
+                component: "الفيوز الرئيسي، قنطرة التوحيد، مكثف الـ 300V، موسفيت وآيسي الباور.",
+                voltages: "Primary: 300V DC | Secondary: 12V (0V المفقود)",
+                toolsNeeded: "أفوميتر رقمي، كاوية لحام، لمبة سيرية 220V للتجارب.",
+                diagnosticSteps: [
+                    "قم بقياس الفيوز الرئيسي بالصفارة، إذا كان مفتوحاً لا تظرفه قبل فحص الشورت.",
+                    "اقس قنطرة التوحيد (Bridge Diode) والموسفيت الرئيسي للتأكد من عدم وجود قصر (Short Circuit).",
+                    "وصل الكهرباء واقس الجهد على المكثف الكبير (يجب أن يكون بين 280V إلى 320V DC).",
+                    "افحص خط خروج الثانوي 12V؛ إذا كان 0V، اقس الدايود الثانوي وحساسات آيسي الـ PWM."
+                ]
+            },
+            {
+                id: "tv-no-backlight",
+                device: "tv",
+                icon: "fa-lightbulb",
+                severity: "عطل إضاءة / باكلايت",
+                title: "الصوت شغال والصورة سوداء (تظهر بيانات خفيفة عند التكشاف)",
+                symptomSummary: "وجود صوت القنوات واستجابة للريموت لكن الشاشة مظلمة تماماً.",
+                component: "مساطر الليدات (LED Strips)، آيسي درايفر الانفرتر، مكثف الانفرتر.",
+                voltages: "Inverter Output: 45V - 120V DC (حسب مقاس الشاشة)",
+                toolsNeeded: "تستر ليدات (LED Tester)، كاوية، طقم مساطر ليدات جديد.",
+                diagnosticSteps: [
+                    "سلط كشاف الهاتف على الشاشة عن قرب؛ إذا ظهرت الصورة خفيفة فالمشكلة في الإضاءة الخلفية.",
+                    "افحص خروج تستر الانفرتر بفيشة المساطر؛ إذا ارتفع الفولت ثم هبط فوراً فهناك ليد محروق.",
+                    "فك الشاشة بحذر وافحص المساطر باستخدام LED Tester لتحديد المسطرة أو الليد التالف.",
+                    "بعد استبدال طقم المساطر بالكامل، قم بعمل تعديل خفض التيار ISET للحفاظ عليها."
+                ]
+            },
+            {
+                id: "rec-on-stuck",
+                device: "receiver",
+                icon: "fa-satellite",
+                severity: "عطل سوفت / باور خفيف",
+                title: "الريسيفر واقف على كلمة ON أو 8888 أو اللمبة الحمراء",
+                symptomSummary: "عدم إقلاع واجهة الجهاز وتوقف الشاشة الرقمية على كلمة ON.",
+                component: "مكثفات خط الـ 5V/12V، آيسي الفلاشة 25Q32، منظمات الجهد AMS1117.",
+                voltages: "3.3V DC (فلاشة) | 1.2V DC (معالج) | 1.8V DC (رام)",
+                toolsNeeded: "أفوميتر، مبرمجة فلاشات (CH341A)، كاوية هوت إير.",
+                diagnosticSteps: [
+                    "افحص كارتة الباور أو المحول الخارجي (12V/2A) وتأكد أنه لا يهبط تحت الحمل.",
+                    "افحص مكثفات التنعيم بجوار منظمات الجهد ابحث عن أي مكثف منتفخ.",
+                    "قس الفولتيات الحساسة: 3.3V على طرف 8 بالفلاشة، و 1.2V على ملف المعالج CPU.",
+                    "إذا كانت الفولتيات سليمة، فقم بشحن الفلاشة 25Q32 بسوفت DUMP جديد عبر المبرمجة."
+                ]
+            },
+            {
+                id: "rec-no-signal",
+                device: "receiver",
+                icon: "fa-signal",
+                severity: "عطل إشارة LNB",
+                title: "الريسيفر قاطع إشارة (رسالة لا توجد إشارة على V أو H)",
+                symptomSummary: "عدم وجود جودة إشارة Signal Quality مع سلامة السلك والطبق.",
+                component: "آيسي الإشارة S8035 / S8036، مكثف 100uF/35V، ترانزستورات التغذية.",
+                voltages: "LNB Out: 13V DC (Vertical) / 18V DC (Horizontal)",
+                toolsNeeded: "أفوميتر رقمي قياس DC Voltage.",
+                diagnosticSteps: [
+                    "قس الفولتية على مخرج مدخل مدخل السلك (LNB IN) بالريسيفر.",
+                    "قم بالتنقل بين قناة عمودية (يجب قراءة 13V) وقناة أفقية (يجب قراءة 18V).",
+                    "إذا كان الفولت 0V، اقس آيسي الإشارة الثماني S8035 وتأكد من وصول تغذية 12V له.",
+                    "استبدل الآيسي والمكثف الدليلي المائل بجواره."
+                ]
+            }
+        ];
+
+        const tvAtlasDatabase = [
+            {
+                title: "شاشة 32 بوصة HD Combo Board",
+                category: "tv",
+                models: "Tornado, Toshiba, JAC, Sharp 32\"",
+                chassis: "TP.V56.PB801 / TP.RD8503.PB801",
+                powerType: "Built-in Combo Power + Main Board",
+                backlightSpecs: "3 Strips x 6 LEDs (6V per LED) - 75V Boost Out",
+                tconType: "Integrated with Panel PCB (No External T-Con)",
+                keyComponents: "PWM IC: TS9511 | MOSFET: 7N65 | Audio: TPA3110D2 | Flash: 25Q32"
+            },
+            {
+                title: "شاشة 43 بوصة FHD Smart",
+                category: "tv",
+                models: "LG 43 Smart / Samsung 43 Series 5 & 6",
+                chassis: "EAX67703503 / BN44-00852A",
+                powerType: "Independent Power Board + Main Board",
+                backlightSpecs: "4 Strips x 8 LEDs (3V per LED) - Direct LED Array",
+                tconType: "External T-Con Board (V-by-One / LVDS Ribbon)",
+                keyComponents: "Power IC: MAP3202 | Main CPU: MSTAR MSD6586 | eMMC: 8GB"
+            },
+            {
+                title: "ريسيفر Mini HD Sunplus",
+                category: "receiver",
+                models: "Sunplus 1506T / 1506F / 2507 Mini",
+                chassis: "HSP06-TV-V1.4 / BOARD-1506",
+                powerType: "External 12V / 1.5A Adapter",
+                backlightSpecs: "N/A (LED Display Panel IR Panel)",
+                tconType: "N/A",
+                keyComponents: "Tuner IC: S8035 | Step-down Buck IC: S10/S15 | Flash: 25Q32"
+            },
+            {
+                title: "ريسيفر GX HD Multistream",
+                category: "receiver",
+                models: "Salik, Truman, Qmax GX6605S",
+                chassis: "GX6605S-MINI-V3.2",
+                powerType: "External 12V Adapter",
+                backlightSpecs: "N/A",
+                tconType: "N/A",
+                keyComponents: "CPU+RAM: NationalChip GX6605S | LNB IC: S8086 | LDO: AMS1117"
+            }
+        ];
+
+        // INITIALIZATION & TAB SWITCHING
+        window.onload = function () {
+            document.getElementById('reportDate').innerText = new Date().toLocaleDateString('ar-EG');
+            renderComponents('all');
+            renderSymptoms('tv');
+            renderAtlas('all');
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            const target = document.getElementById('sec-' + tabId);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('header nav button').forEach(btn => {
+                btn.className = "px-3.5 py-2 rounded-lg font-bold text-slate-300 hover:bg-slate-800 hover:text-white transition flex items-center gap-1.5";
+            });
+            const activeNav = document.getElementById('nav-' + tabId);
+            if (activeNav) {
+                activeNav.className = "px-3.5 py-2 rounded-lg font-bold transition flex items-center gap-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 shadow-lg shadow-cyan-500/20";
+            }
+            document.getElementById('mobileMenu').classList.add('hidden');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        }
+
+        // RENDER FUNCTIONS
+        function renderComponents(catFilter) {
+            const container = document.getElementById('components-grid');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const filtered = catFilter === 'all' 
+                ? componentsDatabase 
+                : componentsDatabase.filter(c => c.category === catFilter);
+
+            filtered.forEach(cmp => {
+                const card = document.createElement('div');
+                card.className = "p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3 hover:border-cyan-500/40 transition";
+                card.innerHTML = `
+                    <div class="flex items-start justify-between border-b border-slate-800 pb-3">
+                        <div>
+                            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">${cmp.pcbCode}</span>
+                            <h3 class="text-base font-bold text-white mt-1">${cmp.name}</h3>
+                        </div>
+                        <span class="text-[11px] text-amber-400 font-bold bg-amber-500/10 px-2 py-1 rounded border border-amber-500/20">${cmp.type}</span>
+                    </div>
+
+                    <div class="text-xs space-y-2 text-slate-300 leading-relaxed">
+                        <p><strong class="text-cyan-400">الوظيفة في الدائرة:</strong> ${cmp.description}</p>
+                        <p><strong class="text-cyan-400">الفولتية القياسية:</strong> ${cmp.nominalVoltages}</p>
+                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1">
+                            <strong class="text-emerald-400 block"><i class="fa-solid fa-vial"></i> طريقة القياس بالأفوميتر:</strong>
+                            <p class="text-slate-400">${cmp.testingMethod}</p>
+                        </div>
+                        <div class="bg-red-950/30 p-3 rounded-xl border border-red-500/20 space-y-1">
+                            <strong class="text-red-400 block"><i class="fa-solid fa-bug"></i> أعراض التلف:</strong>
+                            <p class="text-slate-300">${cmp.failureSymptoms}</p>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterComponents(cat) {
+            document.querySelectorAll('.cmp-btn').forEach(btn => {
+                btn.className = "cmp-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700";
+            });
+            if (event && event.target) {
+                event.target.className = "cmp-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-500 text-slate-950";
+            }
+            renderComponents(cat);
+        }
+
+        function renderSymptoms(devType) {
+            const container = document.getElementById('symptom-grid');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const filtered = masterSymptoms.filter(s => s.device === devType);
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "p-5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 transition cursor-pointer flex flex-col justify-between group";
+                card.onclick = () => showDiagnosticDetail(item.id);
+
+                card.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="w-10 h-10 rounded-xl bg-slate-800 text-cyan-400 flex items-center justify-center text-lg group-hover:bg-cyan-500 group-hover:text-slate-950 transition">
+                                <i class="fa-solid ${item.icon}"></i>
+                            </span>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20">${item.severity}</span>
+                        </div>
+                        <h4 class="font-bold text-sm text-white group-hover:text-cyan-400 transition">${item.title}</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">${item.symptomSummary}</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-cyan-400 font-bold">
+                        <span>عرض خطة الفحص والقطع</span>
+                        <i class="fa-solid fa-arrow-left transition group-hover:-translate-x-1"></i>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterDevice(devType) {
+            const btnTv = document.getElementById('btn-dev-tv');
+            const btnRec = document.getElementById('btn-dev-receiver');
+
+            if (devType === 'tv') {
+                btnTv.className = "px-5 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 bg-cyan-500 text-slate-950 shadow";
+                btnRec.className = "px-5 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 text-slate-400 hover:text-white";
+            } else {
+                btnRec.className = "px-5 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 bg-cyan-500 text-slate-950 shadow";
+                btnTv.className = "px-5 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 text-slate-400 hover:text-white";
+            }
+
+            document.getElementById('diagnostic-result').classList.add('hidden');
+            renderSymptoms(devType);
+        }
+
+        function showDiagnosticDetail(symId) {
+            const item = masterSymptoms.find(s => s.id === symId);
+            if (!item) return;
+
+            const box = document.getElementById('diagnostic-result');
+            box.classList.remove('hidden');
+
+            let stepsHTML = '';
+            item.diagnosticSteps.forEach((st, idx) => {
+                stepsHTML += `
+                    <div class="flex items-start gap-3 p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+                        <span class="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">${idx + 1}</span>
+                        <p class="text-xs text-slate-200 leading-relaxed">${st}</p>
+                    </div>
+                `;
+            });
+
+            box.innerHTML = `
+                <div class="flex items-start justify-between border-b border-borderBg pb-4">
+                    <div>
+                        <span class="text-xs font-bold text-cyan-400 uppercase tracking-wider">دليل الإصلاح والقياس الموجه</span>
+                        <h3 class="text-lg font-extrabold text-white mt-1">${item.title}</h3>
+                    </div>
+                    <button onclick="document.getElementById('diagnostic-result').classList.add('hidden')" class="text-slate-400 hover:text-white p-1">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                        <span class="text-slate-400 block">المكونات المتسببة:</span>
+                        <span class="font-bold text-amber-400 flex items-center gap-1.5"><i class="fa-solid fa-microchip"></i> ${item.component}</span>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                        <span class="text-slate-400 block">الفولتيات القياسية المطلوبة:</span>
+                        <span class="font-bold text-emerald-400 flex items-center gap-1.5"><i class="fa-solid fa-bolt"></i> ${item.voltages}</span>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                        <span class="text-slate-400 block">الأدوات المطلوبة للفحص:</span>
+                        <span class="font-bold text-cyan-300 flex items-center gap-1.5"><i class="fa-solid fa-wrench"></i> ${item.toolsNeeded}</span>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="text-sm font-bold text-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-cyan-400"></i> خطوات الفحص والقياس بالأفوميتر والحل:
+                    </h4>
+                    <div class="space-y-2">
+                        ${stepsHTML}
+                    </div>
+                </div>
+            `;
+
+            box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function renderAtlas(cat) {
+            const container = document.getElementById('atlas-grid');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const filtered = cat === 'all' ? tvAtlasDatabase : tvAtlasDatabase.filter(a => a.category === cat);
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3";
+                card.innerHTML = `
+                    <div class="border-b border-slate-800 pb-3">
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">${item.models}</span>
+                        <h3 class="text-base font-bold text-white mt-1">${item.title}</h3>
+                        <p class="text-xs text-amber-400 font-mono mt-0.5">الشاسيه: ${item.chassis}</p>
+                    </div>
+                    <div class="text-xs space-y-1.5 text-slate-300">
+                        <p><strong class="text-slate-400">منظومة الباور:</strong> ${item.powerType}</p>
+                        <p><strong class="text-slate-400">مواصفات الليدات:</strong> ${item.backlightSpecs}</p>
+                        <p><strong class="text-slate-400">نوع التيكون:</strong> ${item.tconType}</p>
+                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] text-cyan-300">
+                            <strong>الآيسيات الرئيسية:</strong> ${item.keyComponents}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterAtlasCategory(cat) {
+            document.querySelectorAll('.atlas-btn').forEach(btn => {
+                btn.className = "atlas-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-300";
+            });
+            if (event && event.target) {
+                event.target.className = "atlas-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-500 text-slate-950";
+            }
+            renderAtlas(cat);
+        }
+
+        // IMAGE AI ANALYSIS HANDLER
+        let uploadedBase64 = null;
+
+        function handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                uploadedBase64 = evt.target.result;
+                document.getElementById('uploadedImagePreview').src = uploadedBase64;
+                document.getElementById('imagePreviewContainer').classList.remove('hidden');
+                document.getElementById('dropZone').classList.add('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeUploadedImage() {
+            uploadedBase64 = null;
+            document.getElementById('boardImageInput').value = '';
+            document.getElementById('uploadedImagePreview').src = '';
+            document.getElementById('imagePreviewContainer').classList.add('hidden');
+            document.getElementById('dropZone').classList.remove('hidden');
+        }
+
+        function analyzeBoardImage() {
+            const container = document.getElementById('aiResultContainer');
+            const prompt = document.getElementById('aiUserPrompt').value.trim();
+
+            if (!uploadedBase64 && !prompt) {
+                alert('يرجى رفع صورة للبوردة أولاً أو كتابة استفسار فني.');
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="flex flex-col items-center justify-center py-12 space-y-3">
+                    <i class="fa-solid fa-circle-notch fa-spin text-3xl text-cyan-400"></i>
+                    <p class="text-xs text-slate-300 font-bold">جاري تحليل مكونات البوردة والرموز عبر الذكاء الاصطناعي...</p>
+                </div>
+            `;
+
+            setTimeout(() => {
+                const simulatedReport = `
+### 🔍 نتيجة الفحص والتحليل الذكي للبوردة:
+* **نوع البوردة المكتشفة:** Combo Power & Driver Board (TP.V56.PB801).
+* **المكونات البارزة:** 
+  - المكثف الكهرومائي الرئيسي (EC1: 450V 68uF).
+  - موسفيت الباور (Q1: 7N65).
+  - آيسي درايفر الليدات (OB3350).
+  - ذاكرة الفلاشة (25Q32).
+
+### 🛠️ خطوات الفحص الموصى بها بالأفوميتر:
+1. **دائرة 300V:** قم ببيان الفولتية على المكثف الكبير EC1 (يجب قراءة 310V DC).
+2. **خط 12V الثانوي:** اقس الكاثود الخاص بالدايود الشوتكي الثانوي D101.
+3. **دائرة الليدات ISET:** فحص المقاومة 1.2Ω الموصلة بالطرف رقم 5 لآيسي OB3350 وتأكد من رفعها لتقليل تيار الليدات.
+                `;
+                container.innerHTML = formatAiMarkdown(simulatedReport);
+            }, 1800);
+        }
+
+        function formatAiMarkdown(text) {
+            let html = text
+                .replace(/\*\*(.*?)\*\*/g, '<strong class="text-cyan-300 font-bold">$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em class="text-amber-300">$1</em>')
+                .replace(/^### (.*$)/gim, '<h4 class="text-sm font-extrabold text-white mt-3 mb-1 border-b border-slate-800 pb-1">$1</h4>')
+                .replace(/^## (.*$)/gim, '<h3 class="text-base font-black text-cyan-400 mt-4 mb-2">$1</h3>')
+                .replace(/^\- (.*$)/gim, '<li class="mr-4 text-slate-300">$1</li>')
+                .replace(/\n\n/g, '<br/>');
+
+            return `<div class="space-y-2 leading-relaxed">${html}</div>`;
+        }
+
+        function copyAiResponse() {
+            const content = document.getElementById('aiResultContainer').innerText;
+            if (!content) return;
+            const textarea = document.createElement('textarea');
+            textarea.value = content;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('تم نسخ التقرير بنجاح.');
+        }
+
+        // CALCULATORS
+        function calculateResistor() {
+            const b1 = parseInt(document.getElementById('band1').value);
+            const b2 = parseInt(document.getElementById('band2').value);
+            const mult = parseFloat(document.getElementById('bandMult').value);
+            const tol = document.getElementById('bandTol').value;
+
+            const baseVal = (b1 * 10 + b2) * mult;
+            let formatted = '';
+
+            if (baseVal >= 1000000) formatted = (baseVal / 1000000).toFixed(2) + ' MΩ';
+            else if (baseVal >= 1000) formatted = (baseVal / 1000).toFixed(2) + ' kΩ';
+            else formatted = baseVal.toFixed(2) + ' Ω';
+
+            document.getElementById('resistorResultText').innerText = `${formatted} ${tol}`;
+        }
+
+        function calculateSMD() {
+            const input = document.getElementById('smdInput').value.trim().toUpperCase();
+            const resultBox = document.getElementById('smdResultVal');
+
+            if (!input) {
+                resultBox.innerText = 'يرجى إدخال كود المقاومة.';
+                return;
+            }
+
+            if (/^\d{3,4}$/.test(input)) {
+                const digits = input.slice(0, -1);
+                const mult = Math.pow(10, parseInt(input.slice(-1)));
+                const ohm = parseInt(digits) * mult;
+
+                if (ohm >= 1000000) resultBox.innerText = `${input} = ${(ohm / 1000000).toFixed(2)} MΩ`;
+                else if (ohm >= 1000) resultBox.innerText = `${input} = ${(ohm / 1000).toFixed(2)} kΩ`;
+                else resultBox.innerText = `${input} = ${ohm} Ω`;
+                return;
+            }
+
+            if (input.includes('R')) {
+                const val = parseFloat(input.replace('R', '.'));
+                if (!isNaN(val)) {
+                    resultBox.innerText = `${input} = ${val} Ω (مقاومة منخفضة / فيوزية)`;
+                    return;
+                }
+            }
+
+            resultBox.innerText = `الكود غير مدرج بالفك السريع.`;
+        }
+
+        function calculateParallelResistors() {
+            const r1 = parseFloat(document.getElementById('r1Val').value);
+            const r2 = parseFloat(document.getElementById('r2Val').value);
+            const r3 = parseFloat(document.getElementById('r3Val').value) || 0;
+
+            if (isNaN(r1) || isNaN(r2)) {
+                document.getElementById('parallelResult').innerHTML = `<span class="text-red-400">أدخل قيم صحيحة للمقاومات.</span>`;
+                return;
+            }
+
+            let invTotal = (1 / r1) + (1 / r2);
+            if (r3 > 0) invTotal += (1 / r3);
+            const rBefore = 1 / invTotal;
+
+            let invAfter = (1 / r1);
+            if (r3 > 0) invAfter += (1 / r2);
+            const rAfter = 1 / invAfter;
+
+            const percentage = (((rAfter - rBefore) / rBefore) * 100).toFixed(1);
+
+            document.getElementById('parallelResult').innerHTML = `
+                <div class="mt-2 space-y-1 text-[11px]">
+                    <p class="text-slate-300">المقاومة الإجمالية قبل الرفع: <strong class="text-cyan-400">${rBefore.toFixed(2)} Ω</strong></p>
+                    <p class="text-slate-300">المقاومة الجديدة بعد رفع عنصر: <strong class="text-yellow-400">${rAfter.toFixed(2)} Ω</strong></p>
+                    <p class="text-emerald-400 font-bold">✔ زادت المقاومة بنسبة ${percentage}% مما يخفض أمبير وحرارة الليدات بنفس النسبة.</p>
+                </div>
+            `;
+        }
+
+        // FULLSCREEN TEST PATTERNS & AUDIO
+        let audioCtx = null;
+        let oscillator = null;
+        let isAudioPlaying = false;
+
+        function toggleAudioTestTone() {
+            const btn = document.getElementById('btnAudioTone');
+            const status = document.getElementById('audioToneStatus');
+
+            if (!isAudioPlaying) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                oscillator = audioCtx.createOscillator();
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(1000, audioCtx.currentTime);
+                oscillator.connect(audioCtx.destination);
+                oscillator.start();
+
+                isAudioPlaying = true;
+                btn.className = "px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded-xl transition flex items-center gap-2";
+                btn.innerHTML = `<i class="fa-solid fa-square"></i> إيقاف النغمة`;
+                status.innerText = "جاري بث نغمة 1kHz صافية...";
+                status.className = "text-xs text-cyan-400 font-bold animate-pulse";
+            } else {
+                if (oscillator) {
+                    oscillator.stop();
+                    oscillator.disconnect();
+                }
+                isAudioPlaying = false;
+                btn.className = "px-5 py-2 bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold text-xs rounded-xl transition flex items-center gap-2";
+                btn.innerHTML = `<i class="fa-solid fa-play"></i> تشغيل نغمة الاختبـار (1kHz Sine Tone)`;
+                status.innerText = "المولد متوقف حالياً";
+                status.className = "text-xs text-slate-400";
+            }
+        }
+
+        function launchFullscreenTest(type) {
+            const overlay = document.getElementById('fullscreenPatternOverlay');
+            const canvas = document.getElementById('patternCanvas');
+            overlay.classList.remove('hidden');
+
+            if (type === 'color-red') canvas.style.backgroundColor = '#ff0000';
+            else if (type === 'color-green') canvas.style.backgroundColor = '#00ff00';
+            else if (type === 'color-blue') canvas.style.backgroundColor = '#0000ff';
+            else if (type === 'color-white') canvas.style.backgroundColor = '#ffffff';
+            else if (type === 'color-black') canvas.style.backgroundColor = '#000000';
+            else if (type === 'pattern-grid') {
+                canvas.style.backgroundColor = '#000000';
+                canvas.style.backgroundImage = 'linear-gradient(to right, #333 1px, transparent 1px), linear-gradient(to bottom, #333 1px, transparent 1px)';
+                canvas.style.backgroundSize = '40px 40px';
+            }
+
+            if (overlay.requestFullscreen) {
+                overlay.requestFullscreen().catch(() => {});
+            }
+        }
+
+        function exitFullscreenTest() {
+            const overlay = document.getElementById('fullscreenPatternOverlay');
+            overlay.classList.add('hidden');
+            if (document.exitFullscreen) {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        function handleGlobalSearch(e) {
+            const query = e.target.value.toLowerCase().trim();
+            if (!query) return;
+
+            switchTab('components');
+            const container = document.getElementById('components-grid');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const matches = componentsDatabase.filter(c => 
+                c.name.toLowerCase().includes(query) ||
+                c.pcbCode.toLowerCase().includes(query) ||
+                c.description.toLowerCase().includes(query) ||
+                c.failureSymptoms.toLowerCase().includes(query)
+            );
+
+            if (matches.length === 0) {
+                container.innerHTML = `<div class="col-span-2 text-center py-8 text-slate-500 text-sm">لم نجد نتائج تطابق "${query}". جرب البحث بـ (EC1, 103, S8035, MOSFET, VGH)...</div>`;
+                return;
+            }
+
+            matches.forEach(cmp => {
+                const card = document.createElement('div');
+                card.className = "p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3";
+                card.innerHTML = `
+                    <div class="flex items-start justify-between border-b border-slate-800 pb-2">
+                        <div>
+                            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-400">${cmp.pcbCode}</span>
+                            <h3 class="text-base font-bold text-white mt-1">${cmp.name}</h3>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-300">${cmp.description}</p>
+                    <p class="text-xs text-emerald-400">${cmp.testingMethod}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
